@@ -1,0 +1,12 @@
+[submodule "testdata/crds/kubevirt-api"]
+	path = testdata/crds/kubevirt-api
+	url = https://github.com/kubevirt/api
+[submodule "testdata/crds/gateway-api"]
+	path = testdata/crds/gateway-api
+	url = https://github.com/kubernetes-sigs/gateway-api
+[submodule "testdata/crds/cert-manager"]
+	path = testdata/crds/cert-manager
+	url = https://github.com/cert-manager/cert-manager
+[submodule "testdata/crds/cdi-api"]
+	path = testdata/crds/cdi-api
+	url = https://github.com/kubevirt/containerized-data-importer-api

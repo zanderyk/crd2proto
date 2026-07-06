@@ -1,0 +1,68 @@
+name: Generate examples
+
+# Runs `crd2proto generate` against every bundled example project and then
+# validates the emitted .proto with protoc (the Makefile `run-*` targets do
+# both). Each example runs as its own matrix job so a failure in one is
+# isolated and easy to spot.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint & Vet Go
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # `make lint` runs golangci-lint (pinned in the Makefile), which also
+      # covers govet and gofmt/goimports formatting via .golangci.yml.
+      - name: Lint
+        run: make lint
+  generate:
+    name: ${{ matrix.example }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # guestbook lives in-tree, needs no submodule.
+          - example: guestbook
+            target: run-guestbook
+          # The remaining examples generate from CRD submodules under
+          # testdata/crds/. run-kubevirt depends on run-cdi (Make handles it).
+          - example: gateway-api
+            target: run-gateway
+          - example: cert-manager
+            target: run-cert-manager
+          - example: kubevirt
+            target: run-kubevirt
+
+    steps:
+      - name: Checkout (with submodules)
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Install protoc
+        run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
+
+      - name: Generate and validate ${{ matrix.example }}
+        run: make ${{ matrix.target }}

@@ -1,0 +1,35 @@
+syntax = "proto2";
+
+package crd2proto.examples.kubevirt;
+
+import "kubevirt.io/api/core/v1/generated.proto";
+
+option go_package = "github.com/zanderyk/crd2proto/examples/python-grpc/generated";
+
+message GetVMRequest {
+  optional string namespace = 1;
+  optional string name = 2;
+}
+
+message ListVMRequest {
+  optional string namespace = 1; // empty = all namespaces
+}
+
+message ListVMResponse {
+  repeated .kubevirt.io.api.core.v1.VirtualMachine items = 1;
+}
+
+message DeleteVMRequest {
+  optional string namespace = 1;
+  optional string name = 2;
+}
+
+message DeleteVMResponse {}
+
+service VirtualMachineService {
+  rpc Get(GetVMRequest) returns (.kubevirt.io.api.core.v1.VirtualMachine);
+  rpc List(ListVMRequest) returns (ListVMResponse);
+  rpc Create(.kubevirt.io.api.core.v1.VirtualMachine) returns (.kubevirt.io.api.core.v1.VirtualMachine);
+  rpc Update(.kubevirt.io.api.core.v1.VirtualMachine) returns (.kubevirt.io.api.core.v1.VirtualMachine);
+  rpc Delete(DeleteVMRequest) returns (DeleteVMResponse);
+}

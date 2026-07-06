@@ -1,0 +1,96 @@
+version: "2"
+
+run:
+  timeout: 5m
+  tests: true
+  go: "1.26"
+
+linters:
+  default: none
+  enable:
+    - errcheck
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - misspell
+    - revive
+    - gocritic
+    - bodyclose
+    - nilerr
+    - unconvert
+    - errorlint
+    - gosec
+    - noctx
+    - prealloc
+    - unparam
+    - wastedassign
+    - copyloopvar
+    - dupl
+    - gocyclo
+    - makezero
+    - nakedret
+    - nolintlint
+    - rowserrcheck
+    - sqlclosecheck
+    - fatcontext
+    - forcetypeassert
+    - thelper
+    - tparallel
+    - usestdlibvars
+    - exhaustive
+    - predeclared
+
+  settings:
+    revive:
+      rules:
+        - name: var-naming
+        - name: exported
+          disabled: true
+        - name: package-comments
+          disabled: true
+    staticcheck:
+      checks:
+        - all
+        - -ST1000
+        - -ST1003
+        - -ST1020
+        - -ST1021
+    gocyclo:
+      min-complexity: 25
+    gosec:
+      excludes:
+        - G104
+        - G304
+        - G122
+    errcheck:
+      exclude-functions:
+        - (io.Closer).Close
+        - (*database/sql.Rows).Close
+
+  exclusions:
+    generated: lax
+    presets:
+      - common-false-positives
+      - std-error-handling
+    rules:
+      - path: _test\.go
+        linters:
+          - errcheck
+          - bodyclose
+          - gosec
+          - dupl
+          - gocyclo
+
+formatters:
+  enable:
+    - gofmt
+    - goimports
+  settings:
+    goimports:
+      local-prefixes:
+        - github.com/zanderyk/crd2proto
+
+issues:
+  max-same-issues: 0
+  max-issues-per-linter: 0
