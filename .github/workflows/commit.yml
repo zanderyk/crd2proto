@@ -22,17 +22,24 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # guestbook lives in-tree, needs no submodule.
           - example: guestbook
             target: run-guestbook
-          # The remaining examples generate from CRD submodules under
-          # testdata/crds/. run-kubevirt depends on run-cdi (Make handles it).
           - example: gateway-api
             target: run-gateway
           - example: cert-manager
             target: run-cert-manager
           - example: kubevirt
             target: run-kubevirt
+          - example: flux-source
+            target: run-flux-source
+          - example: flux-kustomize
+            target: run-flux-kustomize
+          - example: flux-helm
+            target: run-flux-helm
+          - example: crossplane
+            target: run-crossplane
+          - example: kyverno
+            target: run-kyverno
 
     steps:
       - name: Checkout (with submodules)
