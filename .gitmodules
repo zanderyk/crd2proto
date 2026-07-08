@@ -10,3 +10,18 @@
 [submodule "testdata/crds/cdi-api"]
 	path = testdata/crds/cdi-api
 	url = https://github.com/kubevirt/containerized-data-importer-api
+[submodule "testdata/crds/crossplane"]
+	path = testdata/crds/crossplane
+	url = https://github.com/crossplane/crossplane
+[submodule "testdata/crds/kyverno"]
+	path = testdata/crds/kyverno
+	url = https://github.com/kyverno/kyverno
+[submodule "testdata/crds/flux-source-controller"]
+	path = testdata/crds/flux-source-controller
+	url = https://github.com/fluxcd/source-controller
+[submodule "testdata/crds/flux-kustomize-controller"]
+	path = testdata/crds/flux-kustomize-controller
+	url = https://github.com/fluxcd/kustomize-controller
+[submodule "testdata/crds/flux-helm-controller"]
+	path = testdata/crds/flux-helm-controller
+	url = https://github.com/fluxcd/helm-controller

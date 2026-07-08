@@ -38,9 +38,9 @@ type GuestbookSpec struct {
 	Foo *string `json:"foo,omitempty" protobuf:"bytes,1,opt,name=foo"`
 	// Bar is a int64 value! Who knows what it does!
 	Bar *int64 `json:"bar,omitempty" protobuf:"varint,2,opt,name=bar"`
-	// Give me a pod spec to try!
+	// This is a pod spec
 	Pod corev1.Pod `json:"pod,omitempty" protobuf:"bytes,3,opt,name=pod"`
-	// VirtualMachine?
+	// VirtualMachine
 	VirtualMachine virtv1.VirtualMachine `json:"virtualMachine" protobuf:"bytes,4,opt,name=virtualMachine"`
 }
 

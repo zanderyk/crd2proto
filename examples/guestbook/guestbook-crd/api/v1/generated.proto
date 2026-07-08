@@ -2608,10 +2608,10 @@ message GuestbookSpec {
   // Bar is a int64 value! Who knows what it does!
   optional int64 bar = 2;
 
-  // Give me a pod spec to try!
+  // This is a pod spec
   optional .k8s.io.api.core.v1.Pod pod = 3;
 
-  // VirtualMachine?
+  // VirtualMachine
   optional VirtualMachine virtualMachine = 4;
 }
 

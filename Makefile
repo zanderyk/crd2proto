@@ -87,6 +87,31 @@ run-kubevirt: build
 	cd testdata/crds/kubevirt-api && $(BIN) generate kubevirt.io/api/core/v1
 	@$(call protoc_check, testdata/crds/kubevirt-api, core/v1/generated.proto)
 
+.PHONY: run-crossplane
+run-crossplane: build
+	cd testdata/crds/crossplane/apis && $(BIN) generate github.com/crossplane/crossplane/apis/v2/apiextensions/v2
+	@$(call protoc_check, testdata/crds/crossplane/apis, apiextensions/v2/generated.proto)
+
+.PHONY: run-kyverno
+run-kyverno: build
+	cd testdata/crds/kyverno && $(BIN) generate github.com/kyverno/kyverno/api/kyverno/v1
+	@$(call protoc_check, testdata/crds/kyverno, api/kyverno/v1/generated.proto)
+
+.PHONY: run-flux-source
+run-flux-source: build
+	cd testdata/crds/flux-source-controller/api && $(BIN) generate github.com/fluxcd/source-controller/api/v1
+	@$(call protoc_check, testdata/crds/flux-source-controller/api, v1/generated.proto)
+
+.PHONY: run-flux-kustomize
+run-flux-kustomize: build
+	cd testdata/crds/flux-kustomize-controller/api && $(BIN) generate github.com/fluxcd/kustomize-controller/api/v1
+	@$(call protoc_check, testdata/crds/flux-kustomize-controller/api, v1/generated.proto)
+
+.PHONY: run-flux-helm
+run-flux-helm: build
+	cd testdata/crds/flux-helm-controller/api && $(BIN) generate github.com/fluxcd/helm-controller/api/v2
+	@$(call protoc_check, testdata/crds/flux-helm-controller/api, v2/generated.proto)
+
 .PHONY: python-grpc-compile
 python-grpc-compile: run-kubevirt
 	./examples/python-grpc/compile.sh
