@@ -8,7 +8,9 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"io"
 	"io/fs"
+	"log"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -19,6 +21,7 @@ import (
 
 	"github.com/spf13/cobra"
 	gtp "github.com/zanderyk/code-generator/cmd/go-to-protobuf/protobuf"
+	"k8s.io/klog/v2"
 )
 
 var (
@@ -46,6 +49,10 @@ var (
 )
 
 func main() {
+	klog.LogToStderr(false)
+	klog.SetOutput(io.Discard)
+	log.SetOutput(io.Discard)
+
 	root := &cobra.Command{
 		Use:   "crd2proto",
 		Short: "Generate .proto files from kubebuilder-style CRD Go types",
