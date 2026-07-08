@@ -4,7 +4,7 @@ go 1.26.4
 
 require (
 	github.com/spf13/cobra v1.10.0
-	github.com/zanderyk/code-generator v0.0.0-20260707193501-db37f61c0443
+	github.com/zanderyk/code-generator v0.0.0-20260708034727-96b56c435f14
 	k8s.io/klog/v2 v2.140.0
 )
 
